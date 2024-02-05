@@ -12,4 +12,6 @@ Engenharia Web
 
 **Email:** a100657@alunos.uminho.pt
 
-**Fotografia:** ![Foto](foto.png)
+**Fotografia:**
+
+ ![Foto](foto.png)
