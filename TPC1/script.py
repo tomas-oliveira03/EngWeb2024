@@ -14,7 +14,18 @@ def constuirHTMLcasas(casa, ruaHTML, contador):
     if desc is None:
         ruaHTML += f"<p><b>- Descrição: </b>---</p>"
     else:
-        ruaHTML += f"<p><b>- Descrição: </b>{desc.get_text()}</p>"
+        ruaHTML += f"<p><b>- Descrição: </b>"
+        all_paragraphs = desc.select("para")
+        for para in all_paragraphs:
+            for tag in para.contents:
+                if tag.name == "lugar":
+                    ruaHTML += f"<b>{tag.get_text()}</b>"
+                elif tag.name == "entidade":
+                    ruaHTML += f"<i>{tag.get_text()}</i>"
+                else:
+                    ruaHTML += f"{tag.get_text()}"
+            ruaHTML += " "
+        ruaHTML += "</p>"
 
     return ruaHTML
 
@@ -59,7 +70,7 @@ html += "<ul>"
 # Escrever html índice de ruas
 cont = 0
 
-for rua in sorted(all_ruas):
+for rua in all_ruas:
     cont += 1
     ruaHTML = ruaHtml
 
@@ -102,8 +113,15 @@ for rua in sorted(all_ruas):
 
 
         for para in sp.select("corpo > para"):
-            text = para.get_text()
-            ruaHTML += f"<p>{text}</p>"
+            ruaHTML += "<p>"
+            for tag in para.contents:
+                if tag.name == "lugar":
+                    ruaHTML += f"<b>{tag.get_text()}</b>"
+                elif tag.name == "entidade":
+                    ruaHTML += f"<i>{tag.get_text()}</i>"
+                else:
+                    ruaHTML += f"{tag.get_text()}"
+            ruaHTML += "</p>"
 
 
         # Lista de casas da rua
