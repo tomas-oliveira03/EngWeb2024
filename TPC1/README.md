@@ -1,4 +1,10 @@
-# Construir página estática em html 
+# Construir páginas estáticas em HTML 
+
+## Objetivo:
+1. Construir a primeira página contendo todos os índices dos nomes das ruas e com anchor tags que redirecionem para uma página especifica da rua
+2. Essa página terá todas as informações relativas à rua, assim como um link para voltar à página de índices
+
+Fazer para uma ou duas ruas!
 
 ## Resolução:
 
@@ -20,4 +26,4 @@ Apesar de no enunciado apenas serem pedidos "2 ou 3 páginas html das ruas", dec
 Assim sendo o programa tem **24 ruas** com as suas respetivas páginas totalmente completas e **36 ruas** onde algumas imagens não carregam devido à desformatação do nome das imagens referido acima.
 
 As ruas toalmente completas são as que têm número:
-**1,2,5,7,8,11,12,13,18,21,22,24,27,28,34,40,41,50,51,52,54,55,56,57**
+**1,2,5,7,8,11,12,13,18,21,22,24,27,28,34,40,41,50,51,52,54,55,56 e 57**.
