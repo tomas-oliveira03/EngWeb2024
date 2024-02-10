@@ -21,6 +21,8 @@ Cada rua tem uma hiperligação para o _.hmtl_ da mesma, através de um script e
 
 ## Notas:
 
+Em primeiro lugar, referir que existe um warning no **BeautifulSoup** ao ler o ficheiro _.xml_. Este warning não foi possível remover, mas em nada afeta os resultados obridos, daí o uso da biblioteca _warnings_.
+
 Apesar de no enunciado apenas serem pedidos "2 ou 3 páginas html das ruas", decidi fazer com que o script fosse geral o suficiente para construir a página para todas. Infelizmente não consegui carregar algumas fotografias de algumas das ruas, visto que os seus nomes estavam desfromatados. Logo, para esses casos a imagem não carrega, visto que não é possível fazer com que o path reconheça a imagem.
 
 Assim sendo o programa tem **24 ruas** com as suas respetivas páginas totalmente completas e **36 ruas** onde algumas imagens não carregam devido à desformatação do nome das imagens referido acima.
