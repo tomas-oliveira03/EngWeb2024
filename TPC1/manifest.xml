@@ -2,8 +2,8 @@
 
 <doc>
     <meta>
-        <title>TPC1: Exemplo</title>
-        <date>2024-02-05</date>
+        <title>TPC1: Construir páginas estáticas em HTML </title>
+        <date>2024-02-10</date>
         <author>
             <id>a100657</id>
             <nome>Tomás Oliveira</nome>
@@ -14,12 +14,23 @@
         </uc>
     </meta>
     <resumo>
-        <p>Primeiro parágrafo</p>
-        <p>Segundo parágrafo</p>
-        <p>Terceiro parágrafo com <url>link</url><texto>url embutido</texto></p>
+        <p>Construir a primeira página contendo todos os índices dos nomes das ruas e com anchor tags que redirecionem para uma página especifica da rua.</p>
+        <p>Essa página terá todas as informações relativas à rua, assim como um link para voltar à página de índices.</p>
+        <p>Fazer para uma ou duas ruas!</p>
     </resumo>
     <resultados>
-        <resultado>resultado 1</resultado>
-        <resultado>resultado 2</resultado>
+        <resultado>Para a página de índice inicial, através da biblioteca os do Python, consegui aceder aos nomes dos ficheiros, .xml de modo a saber todas as ruas existentes. Depois ordenei toda a lista de ruas.</resultado>
+        <resultado>Cada rua tem uma hiperligação para o .hmtl da mesma, através de um script em Python. Para fazer o parse de cada um dos .xml decidi utilizar as bibliotecas xmltodict e BeautifulSoup. Para cada uma das página temos as seguintes informações:</resultado>
+        <resultado>Nome da rua e o seu número lido através das tags meta do xml.</resultado>
+        <resultado>Informações acerca da rua, localizado no corpo do html em cada tag para. As outras tags dentro dessa forma ignoradas, visto que são variáveis e a sua personalização teria de ser feito manualmente.</resultado>
+        <resultado>Lista de casas lida através da tag lista-casas, onde é possível obter algumas informações específicas acerca das várias casas.</resultado>
+        <resultado>Imagem antigas com várias vistas, dentro das tags figura, onde era necessário direcionar a imagem para o seu respetivo path.</resultado>
+        <resultado>Imagens atuais das ruas, coisa que não está dentro do .xml mas que é possível aceder, visto que na pasta atual é possíel ver isso mesmo. Como para cada rua existiam duas vistas em .png com o nome da rua como nome da imagem era possível aceder às mesmas através do script.</resultado>
+        <resultado>Hiperligação para voltar para o índice inicial.</resultado>
+
+
+        <resultado>Apesar de no enunciado apenas serem pedidos "2 ou 3 páginas html das ruas", decidi fazer com que o script fosse geral o suficiente para construir a página para todas. Infelizmente não consegui carregar algumas fotografias de algumas das ruas, visto que os seus nomes estavam desfromatados. Logo, para esses casos a imagem não carrega, visto que não é possível fazer com que o path reconheça a imagem.</resultado>
+        <resultado>Assim sendo o programa tem 24 ruas com as suas respetivas páginas totalmente completas e 36 ruas onde algumas imagens não carregam devido à desformatação do nome das imagens referido acima.</resultado>
+        <resultado>As ruas toalmente completas são as que têm número: 1,2,5,7,8,11,12,13,18,21,22,24,27,28,34,40,41,50,51,52,54,55,56 e 57.</resultado>
     </resultados>
 </doc>
