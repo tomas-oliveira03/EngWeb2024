@@ -30,6 +30,7 @@ html = """
 </head>
 
 <body>
+    <h1> Índice </h1>
 """
 
 
@@ -127,12 +128,6 @@ for rua in all_ruas:
                         ruaHTML = constuirHTMLcasas(casa, ruaHTML, contador)
                         contador += 1
             ruaHTML += "<hr>"
-
-        #for para in sp.findAll("casa"):
-        #    text = para.get_text()
-        #    ruaHTML += f"<p>{text}</p>"
-
-
 
 
 
