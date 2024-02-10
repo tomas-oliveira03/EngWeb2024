@@ -7,14 +7,14 @@ from bs4 import BeautifulSoup
 
 def constuirHTMLcasas(casa, ruaHTML, contador):
     ruaHTML += f"<hr><h4>Casa nº{casa['número']}: </h4>"
-    ruaHTML += f"<p><b>- Enfiteuta: </b>{casa.get('enfiteuta', '---')}</p>"
-    ruaHTML += f"<p><b>- Foro: </b>{casa.get('foro', '---')}</p>"
+    ruaHTML += f"<p><b>- <u>Enfiteuta:</u> </b>{casa.get('enfiteuta', '---')}</p>"
+    ruaHTML += f"<p><b>- <u>Foro:</u> </b>{casa.get('foro', '---')}</p>"
 
     desc = sp.select_one(f"casa:nth-of-type({contador}) > desc")
     if desc is None:
-        ruaHTML += f"<p><b>- Descrição: </b>---</p>"
+        ruaHTML += f"<p><b>- <u>Descrição:</u> </b>---</p>"
     else:
-        ruaHTML += f"<p><b>- Descrição: </b>"
+        ruaHTML += f"<p><b>- <u>Descrição:</u> </b>"
         all_paragraphs = desc.select("para")
         for para in all_paragraphs:
             for tag in para.contents:
@@ -22,6 +22,8 @@ def constuirHTMLcasas(casa, ruaHTML, contador):
                     ruaHTML += f"<b>{tag.get_text()}</b>"
                 elif tag.name == "entidade":
                     ruaHTML += f"<i>{tag.get_text()}</i>"
+                elif tag.name == "data":
+                    ruaHTML += f"<u>{tag.get_text()}</u>"
                 else:
                     ruaHTML += f"{tag.get_text()}"
             ruaHTML += " "
@@ -119,6 +121,8 @@ for rua in all_ruas:
                     ruaHTML += f"<b>{tag.get_text()}</b>"
                 elif tag.name == "entidade":
                     ruaHTML += f"<i>{tag.get_text()}</i>"
+                elif tag.name == "data":
+                    ruaHTML += f"<u>{tag.get_text()}</u>"
                 else:
                     ruaHTML += f"{tag.get_text()}"
             ruaHTML += "</p>"
