@@ -47,18 +47,19 @@ os.mkdir("Ruas")
 # Ler nomes de todas as ruas
 all_files = []
 all_ruas = []
+names_for_index = []
 for rua in os.listdir("./MapaRuas-materialBase/texto"):
     all_files.append(rua)
     all_ruas.append(rua.split("-")[2].split(".xml")[0])
 
+
 # Escrever html índice de ruas
 html += "<ul>"
-for rua in sorted(all_ruas):
-    html += f"<li><a href='./Ruas/{rua}.html'>{rua}</a></li>"
 
 # Escrever html índice de ruas
 cont = 0
-for rua in all_ruas:
+
+for rua in sorted(all_ruas):
     cont += 1
     ruaHTML = ruaHtml
 
@@ -89,6 +90,7 @@ for rua in all_ruas:
 
         ruaHTML += f"<h1><b>{meta['nome']}</b></h1>"
         ruaHTML += f"<h2>Número: {meta['número']}</h2><hr>"
+        names_for_index.append((meta['nome'], rua))
 
 
         # Informações da rua
@@ -163,6 +165,11 @@ for rua in all_ruas:
 
     with open(f"./Ruas/{rua}.html", "w", encoding="utf-8") as ficheiroHTML:
         ficheiroHTML.write(ruaHTML)
+
+
+for i in sorted(names_for_index, key=lambda x: x[0]):
+    html += f"<li><a href='./Ruas/{i[1]}.html'>{i[0]}</a></li>"
+
 
 
 html += "</ul>"
