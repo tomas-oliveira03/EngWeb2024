@@ -66,6 +66,8 @@ for rua in os.listdir("./MapaRuas-materialBase/texto"):
     all_ruas.append(rua.split("-")[2].split(".xml")[0])
 
 
+all_imagens_novas = os.listdir("./MapaRuas-materialBase/atual")
+
 # Escrever html índice de ruas
 html += "<ul>"
 
@@ -166,16 +168,18 @@ for rua in all_ruas:
             """
         ruaHTML += "</table>"
 
+        image1 = [image for image in all_imagens_novas if image.startswith(f"{cont}-") and image.endswith("-Vista1.JPG")][0]
+        image2 = [image for image in all_imagens_novas if image.startswith(f"{cont}-") and image.endswith("-Vista2.JPG")][0]
 
         ruaHTML += "<br><h3>Imagens depois: </h3><table>"
         ruaHTML += f"""
                     <tr>
                         <td><b>Vista1</b></th>
-                        <td><img src="{"../MapaRuas-materialBase/atual/"+str(cont)+'-'+rua+'-Vista1.JPG'}" alt="Vista1" height="100px"></th>
+                        <td><img src="{"../MapaRuas-materialBase/atual/"+image1}" alt="Vista1" height="100px"></th>
                     </tr>
                     <tr>
                         <td><b>Vista2</b></th>
-                        <td><img src="{"../MapaRuas-materialBase/atual/"+str(cont)+'-'+rua+'-Vista2.JPG'}" alt="Vista2" height="100px"></th>
+                        <td><img src="{"../MapaRuas-materialBase/atual/"+image2}" alt="Vista2" height="100px"></th>
                     </tr>
                     """
         ruaHTML += "</table>"

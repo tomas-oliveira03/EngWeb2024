@@ -23,9 +23,19 @@ Cada rua tem uma hiperligação para o _.hmtl_ da mesma, através de um script e
 
 Em primeiro lugar, referir que existe um warning no **BeautifulSoup** ao ler o ficheiro _.xml_. Este warning não foi possível remover, mas em nada afeta os resultados obridos, daí o uso da biblioteca _warnings_.
 
-Apesar de no enunciado apenas serem pedidos "2 ou 3 páginas html das ruas", decidi fazer com que o script fosse geral o suficiente para construir a página para todas. Infelizmente não consegui carregar algumas fotografias de algumas das ruas, visto que os seus nomes estavam desfromatados. Logo, para esses casos a imagem não carrega, visto que não é possível fazer com que o path reconheça a imagem.
+Apesar de no enunciado apenas serem pedidos "2 ou 3 páginas html das ruas", decidi fazer com que o script fosse geral o suficiente para construir a página para todas.
 
-Assim sendo o programa tem **24 ruas** com as suas respetivas páginas totalmente completas e **36 ruas** onde algumas imagens não carregam devido à desformatação do nome das imagens referido acima.
+Assim sendo o programa tem **59 ruas** com as suas respetivas páginas totalmente completas e funcionais e uma página, a página 58, onde as imagens antigas não carregam porque o path do _.xml_ direciona para uma imagem que não existe, visto que o seu nome se encontra desformatado.
 
-As ruas toalmente completas são as que têm número:
-**1,2,5,7,8,11,12,13,18,21,22,24,27,28,34,40,41,50,51,52,54,55,56 e 57**.
+### Caso específico (Rua 58):
+
+Path da imagem no _.xml_:
+```
+<imagem path="../imagem/MRB-58-RuaDaCónega-sul.jpg"/>
+```
+
+Nome da imagem na diretoria _atual_:
+
+```
+MRB-58-RuaDaC┬ónega-norte.jpg
+```
