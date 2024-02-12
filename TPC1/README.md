@@ -34,7 +34,7 @@ Path da imagem no _.xml_:
 <imagem path="../imagem/MRB-58-RuaDaCónega-sul.jpg"/>
 ```
 
-Nome da imagem na diretoria _atual_:
+Nome da imagem na diretoria _imagem_:
 
 ```
 MRB-58-RuaDaC┬ónega-norte.jpg
