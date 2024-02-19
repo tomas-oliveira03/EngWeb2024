@@ -101,7 +101,7 @@ for rua in all_ruas:
             for fig in figuras:
                 all_images.append(("../MapaRuas-materialBase"+fig['imagem']['@path'][2:], fig['legenda']))
         else:
-            all_images.append(("../MapaRuas-materialBase"+figuras['imagem']['@path'][2:], fig['legenda']))
+            all_images.append(("../MapaRuas-materialBase"+figuras['imagem']['@path'][2:], figuras['legenda']))
 
         ruaHTML += f"<h1><b>{meta['nome']}</b></h1>"
         ruaHTML += f"<h2>Número: {meta['número']}</h2><hr>"
