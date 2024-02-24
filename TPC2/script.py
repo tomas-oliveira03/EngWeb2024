@@ -1,21 +1,6 @@
 import json
 import os
 
-# HTML para o índice
-html = """
-<!DOCTYPE html>
-<html lang="pt PT">
-<head>
-    <title>Índice</title>
-    <meta charset="utf-8">
-</head>
-
-<body>
-    <h1> Índice </h1>
-    <ul>
-"""
-
-
 # HTML para cada uma das ruas
 cidadeHtml = """
 <!DOCTYPE html>
@@ -38,9 +23,6 @@ for cidade in cidades_list:
     populacao = cidade["população"]
     descricao = cidade["descrição"]
     distrito = cidade["distrito"]
-
-
-    html += f"<li><a href = 'http://localhost:1902/{id}'>{nome}</a></li>"
 
 
     cityHtml = cidadeHtml
@@ -82,17 +64,4 @@ for cidade in cidades_list:
 
     with open(f"./Cidades/{id}.html", "w", encoding="utf-8") as ficheiroHTML:
         ficheiroHTML.write(cityHtml)
-
-
-
-
-html += "</ul>"
-html += "</body>"
-
-with open("indice.html", "w", encoding="utf-8") as ficheiroHTML:
-    ficheiroHTML.write(html)
-
-
-
-
 
