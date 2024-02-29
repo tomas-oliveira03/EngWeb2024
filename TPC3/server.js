@@ -1,14 +1,23 @@
 var  http = require("http");
-var fs = require("fs");
 var url = require("url");
 var axios = require("axios");
 
 http.createServer((req, res) => {
-    console.log(req.method + " " + req.url);
 
     var q = url.parse(req.url, true);
 
-    if (q.pathname == "/filmes") {
+
+    if(q.pathname == "/"){
+        res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+        res.write("<h1>Índice: </h1>");
+        res.write("<ul>");
+        res.write("<li><a href='http://localhost:2602/filmes'>Filmes</a></li>");
+        res.write("<li><a href='http://localhost:2602/atores'>Atores</a></li>");
+        res.write("<li><a href='http://localhost:2602/generos'>Géneros</a></li>");
+        res.write("</ul>");
+
+    }
+    else if (q.pathname == "/filmes") {
         res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
         axios.get("http://localhost:3000/filmes")
             .then(resp => {
@@ -82,6 +91,7 @@ http.createServer((req, res) => {
 
             })
             .catch(err => {
+                res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
                 res.write("Erro: " + err);
                 res.end();
             });
@@ -114,22 +124,7 @@ http.createServer((req, res) => {
                 res.write("<ul>");
 
                 moviesSet.forEach(filme => {
-                    var movieName = filme.replace(/ /g, '%20')
-                    var linkMovie = "http://localhost:3000/filmes?title=" + movieName
-                    var movieLink
-                    axios.get(linkMovie)
-                        .then(resp => {
-                            movieLink = resp.data[0].year
-                        })
-                        .catch(err => {
-                            res.write("Erro: " + err);
-                            res.end();
-                        });
-
-                        console.log(movieLink)
-
-                    var link = "http://localhost:2602/filmes/" + movieLink
-                    res.write("<li><a href='" + link + "'>" + filme + "</a></li>")
+                    res.write("<li>" + filme + "</li>")
                 });
 
                 res.write("</ul>");
@@ -141,7 +136,96 @@ http.createServer((req, res) => {
                 res.write("Erro: " + err);
                 res.end();
             });
+    }
+    else if (q.pathname == "/generos") {
 
+        res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+        axios.get("http://localhost:3000/filmes")
+            .then(resp => {
+                
+                let lista = resp.data
+
+                let generosSet = new Set();
+
+                for(elem in lista){
+                    var generos = lista[elem].genres
+
+                    if(generos != null){
+                        for (let i = 0; i < generos.length; i++) {
+                            generosSet.add(generos[i]);
+                        }   
+                    }
+                    else{
+                        generosSet.add("Undefined");
+                    }
+                    
+                }
+
+                res.write("<h1>Géneros: </h1>");
+                res.write("<ul>");
+
+                generosSet.forEach(genero => {
+                    var link = "http://localhost:2602/generos/" + genero
+                    res.write("<li><a href='" + link + "'>" + genero + "</a></li>")
+                });
+
+                res.write("</ul>");
+                res.end();
+
+            })
+            .catch(err => {
+                res.write("Erro: " + err);
+                res.end();
+            });
+    
+        
+    }
+    else if (q.pathname.match(/\/generos\/(.+)/)) {
+        res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+        let ator1 = q.pathname.substring(9);
+        axios.get("http://localhost:3000/filmes")
+            .then(resp => {
+
+                let genero = ator1.replace(/%20/g, ' ');
+
+                let lista = resp.data
+
+                let moviesSet = new Set();
+
+                for(elem in lista){
+                    var generos = lista[elem].genres
+
+                    if(generos != null){
+                        for (let i = 0; i < generos.length; i++) {
+                            if(generos[i] == genero){
+                                moviesSet.add(lista[elem].title);
+                            }
+                        }
+                    }
+                    else{
+                        if(genero == "Undefined"){
+                            moviesSet.add(lista[elem].title);  
+                        }
+                        
+                    }
+                }
+
+                res.write("<h1>" + genero +"</h1>");
+                res.write("<ul>");
+
+                moviesSet.forEach(filme => {
+                    res.write("<li>" + filme + "</li>")
+                });
+
+                res.write("</ul>");
+                res.end();
+
+
+            })
+            .catch(err => {
+                res.write("Erro: " + err);
+                res.end();
+            });
     }
      else {
         res.write("Erro")
@@ -154,3 +238,4 @@ console.log("Servidor à escuta na porta 2602...");
 console.log("http://localhost:2602")
 console.log("http://localhost:2602/filmes")
 console.log("http://localhost:2602/atores")
+console.log("http://localhost:2602/generos")
