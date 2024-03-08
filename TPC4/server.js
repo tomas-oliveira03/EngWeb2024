@@ -102,14 +102,24 @@ var compositoresServer = http.createServer((req, res) => {
                 }
 
                 // GET /periodos/id --------------------------------------------------------------------
-                else if(/\/periodos\/\w+$/.test(req.url)){
+                else if(/\/periodos\/[0-9]+$/.test(req.url)){
                     var id = req.url.split("/")[2]
                     axios.get('http://localhost:3000/compositores')
                     .then(response => {
                         var compositores = response.data
-                        res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'})
-                        res.write(templates.periodoPage(id, d, compositores))
-                        res.end()
+                            axios.get('http://localhost:3000/periodos/'+id)
+                            .then(response => {
+                                var periodo = response.data
+                                res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'})
+                                res.write(templates.periodoPage(periodo, d, compositores))
+                                res.end()
+                            })
+                            .catch(function(erro){
+                                res.writeHead(502, {'Content-Type': 'text/html; charset=utf-8'})
+                                res.write('<p>Não foi possivel obter o periodo...')
+                                res.write('<p>'+erro+'</p>')
+                                res.end()
+                            })
                     })
                     .catch(function(erro){
                         res.writeHead(502, {'Content-Type': 'text/html; charset=utf-8'})
@@ -125,9 +135,20 @@ var compositoresServer = http.createServer((req, res) => {
                     axios.get('http://localhost:3000/compositores/'+id)
                     .then(response => {
                         var compositor = response.data
-                        res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'})
-                        res.write(templates.compositorFormEdit(compositor, d))
-                        res.end()
+                        axios.get('http://localhost:3000/periodos/')
+                        .then(response => {
+                            var periodos = response.data
+                            res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'})
+                            res.write(templates.compositorFormEdit(compositor, periodos, d))
+                            res.end()
+                        })
+                        .catch(function(erro){
+                            res.writeHead(501, {'Content-Type': 'text/html; charset=utf-8'})
+                            res.write('<p>Não foi possivel obter a lista de periodos...')
+                            res.write('<p>'+erro+'</p>')
+                            res.end()
+                        })
+
                     })
                     .catch(function(erro){
                         res.writeHead(503, {'Content-Type': 'text/html; charset=utf-8'})
@@ -137,10 +158,47 @@ var compositoresServer = http.createServer((req, res) => {
                     })
                 }
 
+                
+                // GET /periodos/edit/id --------------------------------------------------------------------
+                else if(/\/periodos\/edit\/[0-9]+$/.test(req.url)){
+                    var id = req.url.split("/")[3]
+                    console.log(id)
+                    axios.get('http://localhost:3000/periodos/'+id)
+                    .then(response => {
+                        var periodo = response.data
+                        res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'})
+                        res.write(templates.periodoFormEdit(periodo, d))
+                        res.end()
+                    })
+                    .catch(function(erro){
+                        res.writeHead(503, {'Content-Type': 'text/html; charset=utf-8'})
+                        res.write('<p>Não foi possivel editar o período...')
+                        res.write('<p>'+erro+'</p>')
+                        res.end()
+                    })
+                }
+
                 // GET /compositores/registo --------------------------------------------------------------------
                 else if(req.url == "/compositores/registo"){
+                    axios.get('http://localhost:3000/periodos')
+                        .then(response => {
+                            var periodos = response.data
+                            res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'})
+                            res.write(templates.compositorForm(periodos, d))
+                            res.end()
+                        })
+                        .catch(function(erro){
+                            res.writeHead(501, {'Content-Type': 'text/html; charset=utf-8'})
+                            res.write('<p>Não foi possivel obter a lista de periodos...')
+                            res.write('<p>'+erro+'</p>')
+                            res.end()
+                        })
+                }
+
+                // GET /periodos/registo --------------------------------------------------------------------
+                else if(req.url == "/periodos/registo"){
                     res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'})
-                    res.write(templates.compositorForm(d))
+                    res.write(templates.periodoForm(d))
                     res.end()
                 }
 
@@ -163,6 +221,25 @@ var compositoresServer = http.createServer((req, res) => {
                     });
                 }
 
+                // DELETE /periodos/id --------------------------------------------------------------------
+                else if(/\/periodos\/delete\/[0-9]+$/.test(req.url)){
+                    var id = req.url.split("/")[3]
+
+                    axios.delete('http://localhost:3000/periodos/'+id)
+                    .then(() => {
+                        res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'})
+                        res.write('<p>Período eliminado com sucesso...</p>')
+                        res.write("<p><a href='/periodos'> [Voltar] </a></p>")
+                        res.end();
+                    })
+                    .catch(function (erro) {
+                        res.writeHead(505, {'Content-Type': 'text/html; charset=utf-8'})
+                        res.write('<p>Não foi possivel eliminar o período...')
+                        res.write('<p>'+erro+'</p>')
+                        res.end()
+                    });
+                }
+
                 // GET ? -> Lancar um erro
                 else{
                     res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'})
@@ -172,7 +249,7 @@ var compositoresServer = http.createServer((req, res) => {
                 }
                 break
             case "POST":
-                // POST /alunos/registo --------------------------------------------------------------------
+                // POST /compositores/registo --------------------------------------------------------------------
                 if(req.url == "/compositores/registo"){
                     collectRequestBodyData(req, result => {
                         if (result){
@@ -198,8 +275,35 @@ var compositoresServer = http.createServer((req, res) => {
                         }
                     });
                 }
+
+                // POST /periodos/registo --------------------------------------------------------------------
+                else if(req.url == "/periodos/registo"){
+                    collectRequestBodyData(req, result => {
+                        if (result){
+                            axios.post("http://localhost:3000/periodos/", result)
+                                .then(resp => {
+                                    res.writeHead(200, {'Location': '/compositores/' + result.id})
+                                    res.write("<p>Período adicionado com sucesso...</p>")
+                                    res.write("<p><a href='/periodos'> [Voltar] </a></p>")
+                                    res.end()
+                                })
+                                .catch( erro => {
+                                    res.writeHead(506, {'Content-Type': 'text/html; charset=utf-8'})
+                                    res.write('<p>Não foi possivel inserir o período...')
+                                    res.write('<p>'+erro+'</p>')
+                                    res.end()
+                                })
+                            
+                        } else {
+                            res.writeHead(507, {'Content-Type': 'text/html; charset=utf-8'})
+                            res.write('<p>Não foi possivel inserir o período...')
+                            res.write('<p>'+erro+'</p>')
+                            res.end()
+                        }
+                    });
+                }
     
-                // POST /alunos/edit/id --------------------------------------------------------------------
+                // POST /compositores/edit/id --------------------------------------------------------------------
                 else if(/\/compositores\/edit\/C[0-9]+$/.test(req.url)){
                     var id = req.url.split("/")[3]
                     collectRequestBodyData(req, result => {
@@ -221,6 +325,34 @@ var compositoresServer = http.createServer((req, res) => {
                         } else {
                             res.writeHead(507, {'Content-Type': 'text/html; charset=utf-8'})
                             res.write('<p>Não foi possivel inserir o compositor...')
+                            res.write('<p>'+erro+'</p>')
+                            res.end()
+                        }
+                    });
+                }
+
+                // POST /periodos/edit/id --------------------------------------------------------------------
+                else if(/\/periodos\/edit\/[0-9]+$/.test(req.url)){
+                    var id = req.url.split("/")[3]
+                    collectRequestBodyData(req, result => {
+                        if (result){
+                            axios.put("http://localhost:3000/periodos/" +id, result)
+                                .then(resp => {
+                                    res.writeHead(200, {'Location': '/periodos/' + result.id})
+                                    res.write("<p>Compositor alterado com sucesso...</p>")
+                                    res.write("<p><a href='/periodos'> [Voltar] </a></p>")
+                                    res.end()
+                                })
+                                .catch( erro => {
+                                    res.writeHead(506, {'Content-Type': 'text/html; charset=utf-8'})
+                                    res.write('<p>Não foi possivel inserir o periodo...')
+                                    res.write('<p>'+erro+'</p>')
+                                    res.end()
+                                })
+                            
+                        } else {
+                            res.writeHead(507, {'Content-Type': 'text/html; charset=utf-8'})
+                            res.write('<p>Não foi possivel inserir o periodo...')
                             res.write('<p>'+erro+'</p>')
                             res.end()
                         }

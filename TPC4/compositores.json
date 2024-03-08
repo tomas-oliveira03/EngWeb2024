@@ -3,10 +3,10 @@
     {
       "id": "C148",
       "nome": "Antonio Soler",
-      "bio": "Antonio Francisco Javier José Soler Ramos, usualmente mais conhecido hoje como Padre Antonio Soler, (batizado em 3 de Dezembro de 1729 –\n         morto em 20 de Dezembro de 1783) foi um compositor espanhol cujas obras estão enquadradas entre o barroco tardio e o período clássico.\n         Atualmente é mais conhecido por suas sonatas para teclado, uma importante contribuição para o repertório do cravo, piano e órgão.Soler nasceu\n         em Olot situado na província de Girona, Catalunha. Em 1736, com 6 anos, entrou para a escola do coro do grande Mosteiro de Montserrat onde\n         ele estudou com o maestro residente, Benit Esteve, e o organista Benito Valls. Em 1744 foi designado organista da catedral em Seo de Urgel\n         onde foi ordenado como sub-diácono. Mais tarde ele veio a ocupar os postos de mestre de capela em Leida e em El Escorial.Ele tornou-se padre\n         com 23 anos e sua rotina em Escorial, próximo a Madri, foi a mesma pelos próximos 31 anos. Seu dia de 20 horas eram divididos entre orações,\n         contemplações e cultivo da terra, uma vida simples e sem vaidades. Mesmo assim, neste ambiente austero, ele produziu mais de 500 obras\n         musicais. Entre elas, se situam cerca de 150 sonatas, muitas das quais, acredita-se que tenham sido escritas para seu aluno de música, o\n         Infante Don Gabriel, um dos filhos do rei Carlos III. Não são conhecidos retratos de Soler.Os trabalhos mais populares do Padre Soler são\n         suas sonatas para teclado que se comparam às de Domenico Scarlatti, com quem suspeita-se que ele tenha estudado. Entretanto, os trabalhos de\n         Soler são mais variados na forma do que os de Scarlatti, com algumas peças de três ou quatro movimentos, por exemplo, enquanto que as de\n         Scarlatti são de um ou, no máximo, dois movimentos. Felizmente, as sonatas de Soler foram catalogadas no início do século XX pelo Frei Samuel\n         Rubio e portanto a todas foi atribuído um número R.Soler também escreveu concertos, quintetos para órgão e cordas, motetos, missas e peças\n         para solo de órgão. Também escreveu, em 1762, um tratado sobre modulação: Llave de la modulación.Seus excelentes Seis Concertos para Dois\n         Órgãos ainda integram o repertório e têm sido gravados com freqüência. Um fandango anteriormente atribuído a Soler, que provavelmente tem\n         sido executado mais do que qualquer de suas outras obras, é agora tido como de autoria duvidosa.",
       "dataNasc": "1729-12-03",
       "dataObito": "1783-12-20",
-      "periodo": "Barroco"
+      "periodo": "Barroco",
+      "bio": "Antonio Francisco Javier José Soler Ramos, usualmente mais conhecido hoje como Padre Antonio Soler, (batizado em 3 de Dezembro de 1729 –         morto em 20 de Dezembro de 1783) foi um compositor espanhol cujas obras estão enquadradas entre o barroco tardio e o período clássico.         Atualmente é mais conhecido por suas sonatas para teclado, uma importante contribuição para o repertório do cravo, piano e órgão.Soler nasceu         em Olot situado na província de Girona, Catalunha. Em 1736, com 6 anos, entrou para a escola do coro do grande Mosteiro de Montserrat onde         ele estudou com o maestro residente, Benit Esteve, e o organista Benito Valls. Em 1744 foi designado organista da catedral em Seo de Urgel         onde foi ordenado como sub-diácono. Mais tarde ele veio a ocupar os postos de mestre de capela em Leida e em El Escorial.Ele tornou-se padre         com 23 anos e sua rotina em Escorial, próximo a Madri, foi a mesma pelos próximos 31 anos. Seu dia de 20 horas eram divididos entre orações,         contemplações e cultivo da terra, uma vida simples e sem vaidades. Mesmo assim, neste ambiente austero, ele produziu mais de 500 obras         musicais. Entre elas, se situam cerca de 150 sonatas, muitas das quais, acredita-se que tenham sido escritas para seu aluno de música, o         Infante Don Gabriel, um dos filhos do rei Carlos III. Não são conhecidos retratos de Soler.Os trabalhos mais populares do Padre Soler são         suas sonatas para teclado que se comparam às de Domenico Scarlatti, com quem suspeita-se que ele tenha estudado. Entretanto, os trabalhos de         Soler são mais variados na forma do que os de Scarlatti, com algumas peças de três ou quatro movimentos, por exemplo, enquanto que as de         Scarlatti são de um ou, no máximo, dois movimentos. Felizmente, as sonatas de Soler foram catalogadas no início do século XX pelo Frei Samuel         Rubio e portanto a todas foi atribuído um número R.Soler também escreveu concertos, quintetos para órgão e cordas, motetos, missas e peças         para solo de órgão. Também escreveu, em 1762, um tratado sobre modulação: Llave de la modulación.Seus excelentes Seis Concertos para Dois         Órgãos ainda integram o repertório e têm sido gravados com freqüência. Um fandango anteriormente atribuído a Soler, que provavelmente tem         sido executado mais do que qualquer de suas outras obras, é agora tido como de autoria duvidosa."
     },
     {
       "id": "C274",
@@ -1259,15 +1259,39 @@
       "dataObito": "sad",
       "periodo": "sad",
       "bio": "ads"
+    },
+    {
+      "id": "dds",
+      "nome": "ds",
+      "dataNasc": "asd",
+      "dataObito": "dsa",
+      "periodo": "[object Object]",
+      "bio": "d"
+    },
+    {
+      "id": "dsa",
+      "nome": "ads",
+      "dataNasc": "ads",
+      "dataObito": "dsa",
+      "periodo": "Barroco",
+      "bio": "das"
+    },
+    {
+      "id": "C1042",
+      "nome": "ads",
+      "dataNasc": "asd",
+      "dataObito": "sad",
+      "periodo": "Barroco",
+      "bio": "sad"
     }
   ],
   "periodos": [
     {
-      "id": "Barroco",
+      "id": "1",
       "nome": "Barroco"
     },
     {
-      "id": "Renascimento",
+      "id": "2",
       "nome": "Renascimento"
     }
   ]
