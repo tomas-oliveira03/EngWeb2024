@@ -1,16 +1,6 @@
 {
   "compositores": [
     {
-      "id": "C88",
-      "nome": "Antonio Maria Abbatinis",
-      "gitlink": [
-        "1595-01-26",
-        "1679-03-15",
-        "Renascimento",
-        "Antonio Maria Abbatini (Città di Castello, 26 de janeiro de 1595 ou 1600 — agosto de 1679) foi um conhecido maestro e famoso compositor         italiano. Deu a forma de canto gregoriano aos Hinos da Igreja no ano de 1634 e deixou grande número de composições de música religiosa."
-      ]
-    },
-    {
       "id": "C148",
       "nome": "Antonio Soler",
       "bio": "Antonio Francisco Javier José Soler Ramos, usualmente mais conhecido hoje como Padre Antonio Soler, (batizado em 3 de Dezembro de 1729 –\n         morto em 20 de Dezembro de 1783) foi um compositor espanhol cujas obras estão enquadradas entre o barroco tardio e o período clássico.\n         Atualmente é mais conhecido por suas sonatas para teclado, uma importante contribuição para o repertório do cravo, piano e órgão.Soler nasceu\n         em Olot situado na província de Girona, Catalunha. Em 1736, com 6 anos, entrou para a escola do coro do grande Mosteiro de Montserrat onde\n         ele estudou com o maestro residente, Benit Esteve, e o organista Benito Valls. Em 1744 foi designado organista da catedral em Seo de Urgel\n         onde foi ordenado como sub-diácono. Mais tarde ele veio a ocupar os postos de mestre de capela em Leida e em El Escorial.Ele tornou-se padre\n         com 23 anos e sua rotina em Escorial, próximo a Madri, foi a mesma pelos próximos 31 anos. Seu dia de 20 horas eram divididos entre orações,\n         contemplações e cultivo da terra, uma vida simples e sem vaidades. Mesmo assim, neste ambiente austero, ele produziu mais de 500 obras\n         musicais. Entre elas, se situam cerca de 150 sonatas, muitas das quais, acredita-se que tenham sido escritas para seu aluno de música, o\n         Infante Don Gabriel, um dos filhos do rei Carlos III. Não são conhecidos retratos de Soler.Os trabalhos mais populares do Padre Soler são\n         suas sonatas para teclado que se comparam às de Domenico Scarlatti, com quem suspeita-se que ele tenha estudado. Entretanto, os trabalhos de\n         Soler são mais variados na forma do que os de Scarlatti, com algumas peças de três ou quatro movimentos, por exemplo, enquanto que as de\n         Scarlatti são de um ou, no máximo, dois movimentos. Felizmente, as sonatas de Soler foram catalogadas no início do século XX pelo Frei Samuel\n         Rubio e portanto a todas foi atribuído um número R.Soler também escreveu concertos, quintetos para órgão e cordas, motetos, missas e peças\n         para solo de órgão. Também escreveu, em 1762, um tratado sobre modulação: Llave de la modulación.Seus excelentes Seis Concertos para Dois\n         Órgãos ainda integram o repertório e têm sido gravados com freqüência. Um fandango anteriormente atribuído a Soler, que provavelmente tem\n         sido executado mais do que qualquer de suas outras obras, é agora tido como de autoria duvidosa.",
@@ -1270,12 +1260,15 @@
       "periodo": "sad",
       "bio": "ads"
     }
-  ]
-
-
-  ,"periodo": [
-    {"nome": "Barroco"},
-    {"nome": "Renascimento"}, 
-    {"nome": "undefined"}
+  ],
+  "periodos": [
+    {
+      "id": "Barroco",
+      "nome": "Barroco"
+    },
+    {
+      "id": "Renascimento",
+      "nome": "Renascimento"
+    }
   ]
 }
