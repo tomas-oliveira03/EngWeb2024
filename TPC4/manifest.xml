@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<doc>
+    <meta>
+        <title>TPC4: Compositores de Música</title>
+        <date>2024-03-09</date>
+        <author>
+            <id>a100657</id>
+            <nome>Tomás Oliveira</nome>
+        </author>
+        <uc>
+            <sigla>EW2024</sigla>
+            <nome>Engenharia Web</nome>
+        </uc>
+    </meta>
+    <resumo>
+        <p>Criar uma aplicação para a gestão de uma base de dados de compositores musicais:</p>
+        <p>1. Montar a API de dados com o json-server a partir do dataset de compositores em anexo;</p>
+        <p>2. Criar uma aplicação Web com as seguintes caraterísticas:</p>
+        <p>2.1. CRUD sob re compositores;</p>
+        <p>2.2. CRUD sobre periodos musicais.</p>
+        <p>3. Investigar e inserir pelo menos 5 compositores do período moderno ou serialista.</p>
+    </resumo>
+    <resultados>
+        <resultado>Para construir o programa em primeiro lugar foi necessário utilizar a biblioteca axios para aceder ao nosso json. Para além disso, decidi adicionar um outro dicionario json chamdao periodos, visto que será necessário para o futuro.</resultado>
+
+        <resultado>Como é necessário seguir o método CRUD decidi:</resultado>
+        <resultado>Para os compositores e para os períodos a ideologia é mesma logo irei explicar os dois juntos.</resultado>
+
+        <resultado>1. Método GET all</resultado>
+        <resultado>    - Para ler, utilizar axios.get().</resultado>
+        <resultado>    - De seguida, decidi aceder aos templates, e através do que foi lido anterirormente criar uma página web que mostre o conteúdo lido.</resultado>
+
+        <resultado>2. Método Retreive one</resultado>
+        <resultado>    - Para ler, utilizar axios.get().</resultado>
+        <resultado>    - De seguida, através do id apresentado, irei aceder a um template e mostrar informações acerca daquele id específico.</resultado>
+
+        <resultado>3. Método Retreive</resultado>
+        <resultado>    - Para eliminar, utilizar axios.delete().</resultado>
+        <resultado>    - De seguida, apresentar uma página que indica se foi ou não possível eliminar o determinado id.</resultado>
+
+        <resultado>4. Método Delete</resultado>
+        <resultado>    - Para eliminar, utilizar axios.delete().</resultado>
+        <resultado>    - De seguida, apresentar uma página que indica se foi ou não possível eliminar o determinado id.</resultado>
+
+        <resultado>5. Método Update</resultado>
+        <resultado>    - Para ler o que o user insere, utilizar axios.get().</resultado>
+        <resultado>    - De seguida, apresentar uma página forms onde o utilizador pode alterar os dados que pretender.</resultado>
+        <resultado>    - Para atualizar usar axios.put().</resultado>
+
+        <resultado>6. Método Create</resultado>
+        <resultado>    - Para ler o que o user insere, utilizar axios.get().</resultado>
+        <resultado>    - De seguida, apresentar uma página forms onde o utilizador pode inserir os dados que pretender.</resultado>
+        <resultado>    - Para atualizar usar axios.put().</resultado>
+
+        <resultado>Existem vários detalhes neste programa, por exemplo, ao inserir um compositor, na secção dos períodos, foi gerado um botão de dropdown onde é possível selecionar um dos períodos existentes no ficheiro json. Para além disso, existe em cada uma das páginas sempre uma anchor tag para redirecionar o utilizador para o índice, página principal, se pretender.</resultado>
+
+        <resultado>Rodar o programa</resultado>
+        <resultado>Para rodar o programa faça em terminais diferentes:</resultado>
+        <resultado>1. json-server --watch compositores.json</resultado>
+        <resultado>2. node server.js</resultado>
+
+        <resultado>Fazendo isso, irá aparecer no output do terminal 2., a seguinte mensagem:</resultado>
+        <resultado>Servidor à escuta na porta 3040...</resultado>
+        <resultado>Onde poderá abrir o link e iniciar a navegação pelos vários compositores e seus períodos.</resultado>
+
+    </resultados>
+</doc>
