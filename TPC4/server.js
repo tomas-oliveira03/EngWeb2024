@@ -31,7 +31,6 @@ function collectRequestBodyData(request, callback) {
 var compositoresServer = http.createServer((req, res) => {
 
     var d = new Date().toISOString().substring(0, 16)
-    console.log(req.method + " " + req.url + " " + d)
 
     if(static.staticResource(req)){
         static.serveStaticResource(req, res)
@@ -162,7 +161,6 @@ var compositoresServer = http.createServer((req, res) => {
                 // GET /periodos/edit/id --------------------------------------------------------------------
                 else if(/\/periodos\/edit\/[0-9]+$/.test(req.url)){
                     var id = req.url.split("/")[3]
-                    console.log(id)
                     axios.get('http://localhost:3000/periodos/'+id)
                     .then(response => {
                         var periodo = response.data
@@ -379,7 +377,7 @@ var compositoresServer = http.createServer((req, res) => {
 
 compositoresServer.listen(3040, ()=>{
     console.log("Servidor à escuta na porta 3040...")
-    console.log("http://localhost:3040/compositores")
+    console.log("http://localhost:3040/")
 })
 
 
