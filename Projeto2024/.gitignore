@@ -6,3 +6,5 @@ API/exportedData
 Autenticacao/node_modules/
 Autenticacao/package-lock.json
 Interface/public/images/imagens
+MapaRuas-materialBase/atual
+MapaRuas-materialBase/imagem
