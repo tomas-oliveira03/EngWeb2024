@@ -1,0 +1,47 @@
+extends layout
+
+block content
+  .w3-container
+    a.w3-button.w3-dark-grey.w3-padding-large(style="margin-left: 20px; margin-top: 30px; color: black; margin-bottom: 20px;" href='/ruas/' + rua._id) < Voltar à rua
+    h3(style="padding-top: 40px; text-align: center;")
+      b Sugestões da #{rua.nome}
+
+    #casas-secao(style="padding: 20px")
+      if sugestoes.length > 0
+        
+        each sugestao in sugestoes
+          if sugestao.important
+            .w3-card-4(style="margin-bottom: 20px; border-radius: 5px; background-color: #ECDB46;")
+              .w3-container.w3-padding(style="border-bottom: 2px solid #ccc;")
+                p.w3-large(style="font-weight: bold; word-wrap: break-word; overflow-wrap: break-word; margin-bottom: 40px;") #{sugestao.alteracoes}
+                p.w3-medium(style="word-wrap: break-word; overflow-wrap: break-word;") #{sugestao.justificacao}
+              .w3-container.w3-padding(style="display: flex; justify-content: space-between; align-items: center;")
+                .w3-text-grey(style="flex-grow: 1; text-align: left;")
+                  span Sugestão de #{sugestao.feitaPor} em #{sugestao.data}
+                .w3-right(style="display: flex; gap: 10px;")
+                  a.button.w3-button.w3-red.w3-margin-right(href=`/sugestoes/delete/${sugestao._id}?rua=${rua._id}`)
+                    i.fas.fa-times(style="font-size: 18px; color: white;") X
+                  a.button.w3-button.w3-green(href=`/sugestoes/edit/${sugestao._id}?rua=${rua._id}&estado=${!sugestao.important}`)
+                    i.fas.fa-check(style="font-size: 18px; color: white;") ✓
+
+
+        each sugestao in sugestoes
+          if sugestao.important == false
+            .w3-card-4(style="margin-bottom: 20px; border-radius: 5px;")
+              .w3-container.w3-padding(style="border-bottom: 2px solid #ccc;")
+                p.w3-large(style="font-weight: bold; word-wrap: break-word; overflow-wrap: break-word; margin-bottom: 40px;") #{sugestao.alteracoes}
+                p.w3-medium(style="word-wrap: break-word; overflow-wrap: break-word;") #{sugestao.justificacao}
+              .w3-container.w3-padding(style="display: flex; justify-content: space-between; align-items: center;")
+                .w3-text-grey(style="flex-grow: 1; text-align: left;")
+                  span Sugestão de #{sugestao.feitaPor} em #{sugestao.data}
+                .w3-right(style="display: flex; gap: 10px;")
+                  a.button.w3-button.w3-red.w3-margin-right(href=`/sugestoes/delete/${sugestao._id}?rua=${rua._id}`)
+                    i.fas.fa-times(style="font-size: 18px; color: white;") X
+                  a.button.w3-button.w3-green(href=`/sugestoes/edit/${sugestao._id}?rua=${rua._id}&estado=${!sugestao.important}`)
+                    i.fas.fa-check(style="font-size: 18px; color: white;") ✓
+
+
+      else
+        .w3-card-4(style="margin-bottom: 20px; border-radius: 5px;")
+          .w3-container.w3-padding(style="border-bottom: 2px solid #ccc; text-align: center;")
+            p(style="margin: 0;") Não há sugestões disponíveis.

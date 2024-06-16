@@ -1,0 +1,134 @@
+extends layout
+
+block content
+    .w3-padding.w3-flex-center(style="display: flex; flex-direction: column; align-items: center;")
+        // USER INFO
+        .w3-card-4.w3-margin.w3-animate-left(style="width: 100%; width: 1000px; margin: auto;")
+
+            .w3-container(style="width: 1000px; display: flex; align-items: center;")
+                img.w3-circle(src='/images/icon.png', alt='User Picture', style='width:150px;height:150px; margin-right: 50px; margin-left: 40px;')
+                .w3-col(style="width: 50%;")
+                    .w3-section
+                        p
+                            b.w3-large Username: 
+                            span.w3-large.w3-text-dark-grey #{user.username}
+                    .w3-section
+                        p
+                            b.w3-large Nome: 
+                            span.w3-large.w3-text-dark-grey #{user.name}
+                    .w3-section
+                        p 
+                            b.w3-large Nível: 
+                            span.w3-large.w3-text-dark-grey #{user.level}
+                    .w3-section
+                        p
+                            b.w3-large Data de Criação: 
+                            span.w3-large.w3-text-dark-grey #{user.dateCreated.substring(0, 10)}
+
+        
+        // POSTS
+        .w3-padding.w3-flex-center.w3-animate-left(style="display: flex; flex-direction: column; align-items: center;")
+            .w3-card-4.w3-margin(style="width: 1000px;") 
+                h1.w3-center Os meus Posts
+
+                .w3-container(style="width: 1000px;") 
+                    div(style="display: flex; align-items: center;")
+                        input.w3-input(type="text", id="searchInput", placeholder="Pesquisar posts", style="flex: 1; margin-right: 30px;")
+                        select.w3-select(name="dropdown", id="dropdown", style="margin-right: 30px; width: 100px;")
+                            option(value="rua") Rua
+                            option(value="titulo") Título
+                        button.w3-button.w3-blue#sortOrder(data-order="newest") Mais Recentes Primeiro
+
+                p.w3-center(style="display: none;" id="show") Nenhum post encontrado
+
+                .posts-container
+                    each post in posts
+                        .w3-container.w3-margin.w3-padding.w3-border.w3-round.post-item(style="margin-right: 10px;")
+                            h2= post.title
+                            p.w3-text-grey(style="display: flex;") Rua: #{post.name}
+                            p= post.postText.substring(0, 200) + '...'
+                                
+                            .w3-text-grey
+                                span Post de #{post.postedBy} - #{post.date.toString().replace(/T/, ' ').replace(/\..+/, '').substring(0, 10)}
+            
+                            .w3-margin-top(style="display: flex;")
+                                p.w3-text-grey #{post.likes} 
+                                    if post.likes == 1
+                                        | Like 
+                                    else
+                                        | Likes 
+                                span.w3-margin-left.w3-margin-right
+                                p.w3-text-grey #{post.comments.length} 
+                                    if post.comments.length == 1
+                                        | Comentário
+                                    else
+                                        | Comentários
+
+                            a.w3-button.w3-blue(href='/posts/' + post._id) Ler mais
+
+    script.
+        document.getElementById('searchInput').addEventListener('input', filterPosts);
+        document.getElementById('sortOrder').addEventListener('click', toggleSortOrder);
+
+        function filterPosts() {
+            var filter = document.getElementById('searchInput').value.toLowerCase();
+            var posts = document.getElementsByClassName('post-item');
+            var flag = false;
+            var show = document.getElementById('show');
+            for (var i = 0; i < posts.length; i++) {
+                var post = posts[i];
+                var title = post.querySelector('h2').innerText.toLowerCase();
+                var ruaNameElement = post.querySelector('p.w3-text-grey[style="display: flex;"]');
+                var ruaName = ruaNameElement ? ruaNameElement.innerText.toLowerCase() : '';
+
+                if (document.getElementById('dropdown').value === 'rua') {
+                    if (ruaName.includes(filter)) {
+                        post.style.display = '';
+                        flag = true;
+                    } else {
+                        post.style.display = 'none';
+                    }
+                } else if (document.getElementById('dropdown').value === 'titulo') {
+                    if (title.includes(filter)) {
+                        post.style.display = '';
+                        flag = true;
+                    } else {
+                        post.style.display = 'none';
+                    }
+                }
+            }
+            if (!flag) {
+                show.style.display = '';
+            } else {
+                show.style.display = 'none';
+            }
+        }
+
+        function toggleSortOrder() {
+            var button = document.getElementById('sortOrder');
+            var order = button.getAttribute('data-order');
+            var newOrder = order === 'newest' ? 'oldest' : 'newest';
+            button.setAttribute('data-order', newOrder);
+            button.innerText = newOrder === 'newest' ? 'Mais recentes primeiro' : 'Mais antigos primeiro';
+            sortPosts(newOrder);
+        }
+
+        function sortPosts(order) {
+            var postsContainer = document.querySelector('.posts-container');
+            var posts = Array.from(postsContainer.getElementsByClassName('post-item'));
+
+            posts.sort(function(a, b) {
+                var dateA = new Date(a.querySelector('.w3-text-grey span').innerText.split(' - ')[1]);
+                var dateB = new Date(b.querySelector('.w3-text-grey span').innerText.split(' - ')[1]);
+                return order === 'newest' ? dateB - dateA : dateA - dateB;
+            });
+
+            // Clear and reorder posts
+            postsContainer.innerHTML = '';
+            posts.forEach(function(post) {
+                postsContainer.appendChild(post);
+            });
+        }
+
+        // Initial sort
+        sortPosts('newest');

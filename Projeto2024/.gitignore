@@ -1,0 +1,8 @@
+Interface/node_modules/
+Interface/package-lock.json
+API/node_modules/
+API/package-lock.json
+API/exportedData
+Autenticacao/node_modules/
+Autenticacao/package-lock.json
+Interface/public/images/imagens

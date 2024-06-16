@@ -1,0 +1,43 @@
+extends layout
+
+block content
+  h1(style="padding-left: 10px") Gerenciador de utilizadores
+  #user-list
+    each user in users
+      .w3-card-4.w3-margin.w3-padding
+        .w3-container
+          h2 #{user.name}
+
+          p
+            b Username: 
+            | #{user.username}
+
+          p 
+            b Conta criada em: 
+            | #{user.dateCreated.substring(0, 10)}
+
+          p 
+            b Última vez ativo: 
+            | #{Math.floor((Date.now() - new Date(user.lastActive)) / (1000 * 60 * 60))}
+            | hora#{Math.floor((Date.now() - new Date(user.lastActive)) / (1000 * 60 * 60)) === 1 ? '' : 's'} atrás
+          
+          p  
+            b Nível: 
+            select(name="level" id=`level-${user.username}`)
+              option(value="Consumidor" selected=user.level === 'Consumidor') Consumidor
+              option(value="Administrador" selected=user.level === 'Administrador') Administrador
+
+          a.w3-button.w3-red(href=`/users/delete/${user.username}`) Apagar
+          span(style="margin: 0 10px")
+          a.w3-button.w3-blue(href=`/users/edit/${user.username}?level=${user.level}` id=`save-${user.username}`) Guardar
+
+          script.
+            (function() {
+              const selectElement = document.getElementById('level-#{user.username}');
+              const saveButton = document.getElementById('save-#{user.username}');
+
+              selectElement.addEventListener('change', function() {
+                const selectedLevel = selectElement.value;
+                saveButton.href = `/users/edit/#{user.username}?level=${selectedLevel}`;
+              });
+            })();

@@ -1,0 +1,39 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/w3.css')
+  body
+    block content
+
+
+        script.
+          document.addEventListener("DOMContentLoaded", function() {
+              var error = '!{error}';
+              if (error === "") { } 
+              else {
+                  alert(error);
+              }
+          });
+
+
+
+        .w3-card
+          .w3-container(style= "background-color: #779F60")
+            h2 Login
+
+          form.w3-container(action="/login", method="POST").w3-center
+            .input-container(style="margin: 10px;")
+                label.w3-text-black(for="username") Username
+                input.w3-input(type="text", placeholder="Inserir username", name="username", required, style="width: 400px; margin: 0 auto; border: 1px solid #ccc; border-radius: 5px; padding: 8px;")
+
+            .input-container(style="margin-top: 20px; margin-bottom: 30px;")
+              label.w3-text-black(for="password") Password
+              input.w3-input(type="password", placeholder="Inserir password", name="password", required, style="width: 400px; margin: 0 auto; border: 1px solid #ccc; border-radius: 5px; padding: 8px;")
+
+            .button-container(style="text-align: center; margin: 10px;")
+              button.w3-button.w3-block(type="submit", style="width: 150px; margin: 0 auto; background-color: #9F6077") Login
+
+          p(style="text-align: center; margin: 10px 0 20px;")
+            span Não tem conta? 
+            a(href="/register") Regista-te

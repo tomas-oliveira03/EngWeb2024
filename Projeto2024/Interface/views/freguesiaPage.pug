@@ -1,0 +1,94 @@
+extends layout
+
+block content
+    script.
+        document.addEventListener("DOMContentLoaded", function() {
+            var content = '!{content}';
+            if (content !== "") {
+                alert(content);
+            }
+
+            var table = document.querySelector(".w3-table-all");
+            var headers = table.querySelectorAll("th");
+            var sortDirections = {};
+            var imgs = {};
+
+            headers.forEach(function(header, index) {
+                var img = header.querySelector('img');
+                imgs[index] = img;
+
+                if (header.textContent.trim() === "Nome" || header.textContent.trim() === "Id" || header.textContent.trim() === "Freguesia" || header.textContent.trim() === "Toponimia"){
+                    sortDirections[index] = 'none';
+                    header.style.cursor = "pointer";
+                    header.addEventListener("click", function() {
+                        var columnName = header.textContent.trim();
+                        sortTable(index, columnName);
+                        toggleSortDirection(index);
+                    });
+                }
+            });
+
+            function sortTable(columnIndex, columnName) {
+                var rows = Array.from(table.querySelectorAll("tr:not(.w3-grey)"));
+                var sortedRows = rows.sort(function(a, b) {
+                    var cellA = a.querySelectorAll("td")[columnIndex].textContent.trim();
+                    var cellB = b.querySelectorAll("td")[columnIndex].textContent.trim();
+                    if (columnName === "Id") {
+                        return sortDirections[columnIndex] === 'asc' 
+                            ? parseInt(cellA) - parseInt(cellB)
+                            : parseInt(cellB) - parseInt(cellA);
+                    } else {
+                        return sortDirections[columnIndex] === 'asc' 
+                            ? cellA.localeCompare(cellB, 'pt', { sensitivity: 'base' })
+                            : cellB.localeCompare(cellA, 'pt', { sensitivity: 'base' });
+                    }
+                });
+
+                sortedRows.forEach(function(row) {
+                    table.appendChild(row);
+                });
+            }
+
+            function toggleSortDirection(columnIndex) {
+                if (sortDirections[columnIndex] === 'none' || sortDirections[columnIndex] === 'desc') {
+                    sortDirections[columnIndex] = 'asc';
+                } else {
+                    sortDirections[columnIndex] = 'desc';
+                }
+                updateSortIcons(columnIndex, sortDirections[columnIndex]);
+            }
+
+            function updateSortIcons(activeIndex, direction) {
+                for (var index in imgs) {
+                    if (parseInt(index) === activeIndex) {
+                        imgs[index].src = direction === 'asc' ? '/images/SetaCima.png' : '/images/SetaBaixo.png';
+                        imgs[index].style.height = '20px';
+                    } else {
+                        imgs[index].src = '/images/SetaLado.png';
+                        imgs[index].style.height = '25px';
+                    }
+                }
+            }
+        });
+
+    div(style='padding: 0 16px;')
+        .w3-card-4
+            h1(style="text-align: center;") Ruas da #{ruas[0].freguesia}
+
+    .w3-container
+        table.w3-table-all.w3-hoverable(style="width: 100%;")
+            tr.w3-grey
+                th Id
+                    img(src="/images/SetaBaixo.png", alt="Image", style="height: 20px;")
+                th Nome
+                    img(src="/images/SetaLado.png", alt="Image", style="height: 25px;")
+                th Toponimia
+                    img(src="/images/SetaLado.png", alt="Image", style="height: 25px;")
+
+            each rua in ruas
+                tr
+                    td
+                        a(href=`/ruas/${rua._id}`) #{rua._id}
+                    td #{rua.nome}
+                    td 
+                        a(href=`/ruas/toponimias/${rua.toponimia}`) #{rua.toponimia}

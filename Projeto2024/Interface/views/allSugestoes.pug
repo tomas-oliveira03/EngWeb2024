@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  .w3-container
+    h3(style="padding-top: 40px; text-align: center;")
+      b Sugestões
+
+    #casas-secao(style="padding: 20px")
+      if sugestoes.length > 0
+        
+        each sugestao in sugestoes.reverse()
+          .w3-card-4(style="margin-bottom: 20px; border-radius: 5px;")
+            .w3-container.w3-padding(style="border-bottom: 2px solid #ccc;")
+              p.w3-medium(style="word-wrap: break-word; overflow-wrap: break-word;") 
+                | Nova sugestão em 
+                a(href="sugestoes/rua/" +sugestao.ruaID) #{sugestao.name}
+                |  por 
+                b 
+                  | #{sugestao.feitaPor}
+                | .
+            .w3-container.w3-padding(style="display: flex; justify-content: space-between; align-items: center;")
+              .w3-text-grey(style="flex-grow: 1; text-align: left;")
+                span #{sugestao.data}
+
+
+      else
+        .w3-card-4(style="margin-bottom: 20px; border-radius: 5px;")
+          .w3-container.w3-padding(style="border-bottom: 2px solid #ccc; text-align: center;")
+            p(style="margin: 0;") Não há sugestões disponíveis.

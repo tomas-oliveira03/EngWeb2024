@@ -1,0 +1,26 @@
+.w3-card-4(style='background-color: #779F60;')
+  .w3-container
+    .w3-row.w3-padding-16(style='padding-left: 10px; padding-right: 10px;')
+      .w3-col.s9.m9.l9(style='display:flex; align-items:center;')
+        .w3-row(style='display:flex; align-items:center;')
+          .w3-col.s3.m3.l3(style='display: flex; align-items: center;')
+            img.w3-circle(src='/images/icon.png', alt='User Picture', style='width:40px;height:40px; margin-right: 10px;')
+            a(style='margin-left: 10px; vertical-align: middle; text-decoration: none; font-size: 17.5px; font-weight: bold; font-family: "Roboto", sans-serif;' href='/userPage') #{username}
+          
+        .w3-col(style='display: flex; align-items: center; margin-left: 20px;')
+          button.w3-button.w3-round(style='margin-left: 30px; height: 40px; background-color: #9F6077; padding: 0px 15px;', onclick='location.href="/ruas";') Ruas
+            i.fas.fa-plus(style='font-size: 18px; color: white;')
+          button.w3-button.w3-round(style='margin-left: 15px; height: 40px; background-color: #9F6077; padding: 0px 15px;', onclick='location.href="/posts";') Posts
+            i.fas.fa-plus(style='font-size: 18px; color: white;')
+          if level == "Administrador"
+            button.w3-button.w3-round(style='margin-left: 15px; height: 40px; background-color: #9F6077; padding: 0px 15px;', onclick='location.href="/users";') Users
+              i.fas.fa-plus(style='font-size: 18px; color: white;')
+            button.w3-button.w3-round(style='margin-left: 15px; height: 40px; background-color: #9F6077; padding: 0px 15px;', onclick='location.href="/sugestoes";') Sugestões
+              i.fas.fa-plus(style='font-size: 18px; color: white;')
+            button.w3-button.w3-round(style='margin-left: 15px; height: 40px; background-color: #9F6077; padding: 0px 15px;', onclick='location.href="/backup/import";') Importar
+              i.fas.fa-plus(style='font-size: 18px; color: white;')
+            button.w3-button.w3-round(style='margin-left: 15px; height: 40px; background-color: #9F6077; padding: 0px 15px;', onclick='location.href="/backup/export";') Exportar
+              i.fas.fa-plus(style='font-size: 18px; color: white;')
+
+      .w3-col.s3.m3.l3(style='display:flex; align-items: center; justify-content: flex-end;')
+        button.w3-button.w3-orange.w3-round(style='background-color: orange !important; color: black !important;', onclick='location.href="/logout";') Sair

@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    a.w3-button.w3-dark-grey.w3-padding-large(style="margin-left: 20px; margin-top: 30px; color: black; margin-bottom: 20px;" href='/posts/' + postID) < Voltar ao post
+
+    .w3-card-4.w3-margin-top(style="max-width: 800px; margin-left: auto; margin-right: auto;")
+        h2.w3-center Escreve um comentário
+
+        form(action='/posts/' + postID + '/commentForm' method='POST' style="padding: 20px;")
+            .w3-section
+                label(for='content') Comentário
+                textarea.w3-input(name='content' id='content' rows='15' style="background-color: #f1f1f1; border-style: solid; resize: none;" required)
+                br
+                button.w3-button.w3-green(type='submit') Submeter

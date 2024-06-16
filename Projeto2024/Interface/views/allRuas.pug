@@ -1,0 +1,124 @@
+extends layout
+
+block content
+    script.
+        document.addEventListener("DOMContentLoaded", function() {
+            var content = '!{content}';
+            if (content !== "") {
+                alert(content);
+            }
+
+            var table = document.querySelector(".w3-table-all");
+            var headers = table.querySelectorAll("th");
+            var sortDirections = {};
+            var imgs = {};
+
+            headers.forEach(function(header, index) {
+                var img = header.querySelector('img');
+                imgs[index] = img;
+
+                if (header.textContent.trim() === "Nome" || header.textContent.trim() === "Id" || header.textContent.trim() === "Freguesia" || header.textContent.trim() === "Toponimia"){
+                    sortDirections[index] = 'none';
+                    header.style.cursor = "pointer";
+                    header.addEventListener("click", function() {
+                        var columnName = header.textContent.trim();
+                        sortTable(index, columnName);
+                        toggleSortDirection(index);
+                    });
+                }
+            });
+
+            function sortTable(columnIndex, columnName) {
+                var rows = Array.from(table.querySelectorAll("tr:not(.w3-grey)"));
+                var sortedRows = rows.sort(function(a, b) {
+                    var cellA = a.querySelectorAll("td")[columnIndex].textContent.trim();
+                    var cellB = b.querySelectorAll("td")[columnIndex].textContent.trim();
+                    if (columnName === "Id") {
+                        return sortDirections[columnIndex] === 'asc' 
+                            ? parseInt(cellA) - parseInt(cellB)
+                            : parseInt(cellB) - parseInt(cellA);
+                    } else {
+                        return sortDirections[columnIndex] === 'asc' 
+                            ? cellA.localeCompare(cellB, 'pt', { sensitivity: 'base' })
+                            : cellB.localeCompare(cellA, 'pt', { sensitivity: 'base' });
+                    }
+                });
+
+                sortedRows.forEach(function(row) {
+                    table.appendChild(row);
+                });
+            }
+
+            function toggleSortDirection(columnIndex) {
+                if (sortDirections[columnIndex] === 'none' || sortDirections[columnIndex] === 'desc') {
+                    sortDirections[columnIndex] = 'asc';
+                } else {
+                    sortDirections[columnIndex] = 'desc';
+                }
+                updateSortIcons(columnIndex, sortDirections[columnIndex]);
+            }
+
+            function updateSortIcons(activeIndex, direction) {
+                for (var index in imgs) {
+                    if (parseInt(index) === activeIndex) {
+                        imgs[index].src = direction === 'asc' ? '/images/SetaCima.png' : '/images/SetaBaixo.png';
+                        imgs[index].style.height = '20px';
+                    } else {
+                        imgs[index].src = '/images/SetaLado.png';
+                        imgs[index].style.height = '25px';
+                    }
+                }
+            }
+
+            document.getElementById('searchInput').addEventListener('input', filterPosts);
+
+            function filterPosts() {
+                var filter = document.getElementById('searchInput').value.toLowerCase();
+                var rows = Array.from(table.querySelectorAll("tr:not(.w3-grey)"));
+                rows.forEach(function(row) {
+                    var cells = Array.from(row.querySelectorAll("td"));
+                    var found = cells.some(function(cell) {
+                        return cell.textContent.toLowerCase().includes(filter);
+                    });
+                    row.style.display = found ? "" : "none";
+                });
+                
+            }
+
+        });
+
+
+    div(style='padding: 20px;')
+        .w3-card-4(style="padding: 20px; margin-bottom: 20px;")
+            h1(style="text-align: center; margin: 0;") Ruas
+    
+    if level == 'Administrador'
+        a.w3-button.w3-dark-grey.w3-padding-large(style="margin-left: 20px; margin-top: 10px; color: black; margin-bottom: 20px;" href='/ruas/file') Adicionar rua
+
+    .w3-container(style="max-width: 600px; margin: 0 auto 20px auto;") 
+        div(style="display: flex; align-items: center; margin-bottom: 10px;")
+            input.w3-input(type="text", id="searchInput", placeholder="Pesquisar por rua ou id", style="border:solid 3px; flex: 1; padding: 10px; font-size: 16px;")
+
+
+    .w3-container(style="margin-top: 20px;")
+        table.w3-table-all.w3-hoverable(style="width: 100%;")
+            tr.w3-grey
+                th(style="position: relative; padding-right: 20px;") Id
+                    img(src="/images/SetaBaixo.png", alt="Sort", style="height: 20px; position: absolute; right: 0; top: 50%; transform: translateY(-50%);")
+                th(style="position: relative; padding-right: 20px;") Nome
+                    img(src="/images/SetaLado.png", alt="Sort", style="height: 25px; position: absolute; right: 0; top: 50%; transform: translateY(-50%);")
+                th(style="position: relative; padding-right: 20px;") Freguesia
+                    img(src="/images/SetaLado.png", alt="Sort", style="height: 20px; position: absolute; right: 0; top: 50%; transform: translateY(-50%);")
+                th(style="position: relative; padding-right: 20px;") Toponimia
+                    img(src="/images/SetaLado.png", alt="Sort", style="height: 20px; position: absolute; right: 0; top: 50%; transform: translateY(-50%);")
+
+            each rua in ruas
+                tr
+                    td
+                        a(href=`/ruas/${rua._id}`) #{rua._id}
+                    td #{rua.nome}
+                    td 
+                        a(href=`ruas/freguesias/${rua.freguesia}`) #{rua.freguesia}
+                    td 
+                        a(href=`ruas/toponimias/${rua.toponimia}`) #{rua.toponimia}
+

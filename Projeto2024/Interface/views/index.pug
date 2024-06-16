@@ -1,0 +1,70 @@
+doctype html
+html(lang="en")
+  head
+    title Home
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css")
+    style.
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f8f9fa;
+        font-size: 24px;
+        margin: 0; 
+      }
+      .welcome-container {
+        padding: 40px;
+        border-radius: 8px;
+        background-color: #779F60;
+        color: #ffffff; 
+        text-align: center; 
+        max-width: 1000px;
+      }
+      h1 {
+        margin-bottom: 100px;
+        font-size: 45px;
+        color: #9F6077;
+      }
+      p {
+        margin-bottom: 40px;
+        font-size: 30px;
+        color: black; 
+      }
+      .btn-login {
+        font-size: 30px;
+        margin-right: 20px;
+        background-color: #9F6077;
+        color: #ffffff;
+        padding: 15px 30px;
+        border: none; 
+        border-radius: 5px;
+        text-decoration: none; 
+        transition: background-color 0.3s ease; 
+      }
+      .btn-register {
+        font-size: 30px;
+        background-color: #9F6077;
+        color: #ffffff; 
+        padding: 15px 30px; 
+        border: none; 
+        border-radius: 5px; 
+        text-decoration: none; 
+        transition: background-color 0.3s ease; 
+      }
+      .btn-login:hover {
+        background-color: #8B5371; 
+      }
+      .btn-register:hover {
+        background-color: #8B5371; 
+      }
+
+  body
+    .welcome-container
+      h1 Bem-Vindo ao Mapa das Ruas de Braga!
+      p Escolha uma opção:
+      a.btn-login(href='/login') Login
+      | &nbsp;&nbsp;&nbsp;
+      a.btn-register(href='/register') Registar

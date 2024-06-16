@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    a.w3-button.w3-dark-grey.w3-padding-large(style="margin-left: 20px; margin-top: 30px; color: black; margin-bottom: 20px;" href='/posts/' + post._id) < Voltar ao post
+
+    .w3-card-4.w3-margin-top(style="max-width: 1000px; margin-left: auto; margin-right: auto;")
+        h1.w3-center Editar um Post
+        form(action='/posts/edit/' + post._id  method='POST')
+            .w3-section
+                label Titulo
+                input.w3-input.w3-border(type='text' name='title' required value= post.title)
+            .w3-section
+                label Conteúdo
+                textarea.w3-input(name='postText' id='postText' rows='15' style="background-color: #f1f1f1; border-style: solid; resize: none;" required)
+                    | #{post.postText}
+            .w3-section
+                button.w3-button.w3-blue(type='submit') Submeter

@@ -1,0 +1,34 @@
+[
+  {
+    "ruaID":"1",
+    "likes": 2,
+    "title": "Apreciação da Rua do Campo",
+    "comments": [
+      {
+        "user": "CatNoob",
+        "content": "Concordo plenamente com tudo! As imagens fascinaram-me.",
+        "date": "2023-07-24"
+      }
+    ],
+    "postText": "Gostei bastante das informações relativas a esta belíssima rua. As fotografias estão bastante atuais e a descrição está muito completa.",
+    "postedBy": "CodeMaster",
+    "date": "2023-07-23",
+    "peopleLikes": ["CatNoob", "CodeMaster"]
+  },
+  {
+    "ruaID": "45",
+    "likes": 0,
+    "title": "Das ruas mais longas de Braga",
+    "comments": [
+      {
+        "user": "CodeMaster",
+        "content": "Ainda me lembro como se fosse hoje, o caminho que tinha que fazer no fim da escola ao longo desta tão extensa rua....",
+        "date": "2023-09-20"
+      }
+    ],
+    "postText": "É incrível ver a diferença na casa número 54 que já pertenceu a um tio meu, saudades dos tempos de criança!",
+    "postedBy": "CatNoob",
+    "date": "2023-09-15",
+    "peopleLikes": []
+  }
+]

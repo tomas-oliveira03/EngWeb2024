@@ -1,0 +1,54 @@
+services:
+  api:
+    build:
+      context: ./API
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+  
+  autenticacao:
+    build:
+      context: ./Autenticacao
+      dockerfile: Dockerfile
+    ports:
+      - "3002:3002"
+    depends_on:
+      - mongodb
+
+  interface:
+    build:
+      context: ./Interface
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    depends_on:
+      - api
+      - autenticacao
+    volumes:
+      - ./scriptAdd:/app/scriptAdd
+      - ./Interface/public:/app/public
+
+  
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27019:27017"
+    depends_on:
+      - mongo-seed
+  
+  mongo-seed:
+    image: mongo:latest
+    volumes:
+      - ./posts.json:/posts.json
+      - ./ruas.json:/ruas.json
+      - ./sugestoes.json:/sugestoes.json
+      - ./users.json:/users.json
+    command: >
+      bash -c "
+      mongoimport --host mongodb -d ruas -c posts --type json --file /posts.json --jsonArray &&
+      mongoimport --host mongodb -d ruas -c ruas --type json --file /ruas.json --jsonArray &&
+      mongoimport --host mongodb -d ruas -c sugestoes --type json --file /sugestoes.json --jsonArray &&
+      mongoimport --host mongodb -d ruas -c users --type json --file /users.json --jsonArray
+      "

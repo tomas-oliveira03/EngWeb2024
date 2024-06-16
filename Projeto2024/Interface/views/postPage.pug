@@ -1,0 +1,58 @@
+extends layout
+
+block content
+    a.w3-button.w3-dark-grey.w3-padding-large(style="margin-left: 20px; margin-top: 30px; color: black; margin-bottom: 20px;" href='/posts') < Voltar a posts
+    if username == post.postedBy
+        a.w3-button.w3-dark-grey.w3-padding-large(style="margin-left: 20px; margin-top: 30px; color: black; margin-bottom: 20px;" href='/posts/edit/'+post._id) Editar post
+        a.w3-button.w3-dark-grey.w3-padding-large(style="margin-left: 20px; margin-top: 30px; color: black; margin-bottom: 20px;" href='/posts/delete/'+post._id) Apagar post
+
+    else if level == 'Administrador'
+        a.w3-button.w3-dark-grey.w3-padding-large(style="margin-left: 20px; margin-top: 30px; color: black; margin-bottom: 20px;" href='/posts/delete/'+post._id) Apagar post
+    
+    .w3-card-4.w3-margin-top(style="max-width: 1000px;; margin-left: auto; margin-right: auto;")
+        
+        h1.w3-center= post.title
+        p.w3-padding= post.postText
+        .w3-text-grey.w3-center
+            span Publicado por #{post.postedBy} - #{post.date.toString().replace(/T/, ' ').replace(/\..+/, '').substring(0, 10)}
+        br
+        .button-container(style="text-align: center;")
+            a.w3-button.w3-green(style="display: inline-block; padding: 10px 20px;" href='/ruas/' + post.ruaID) Rua nº#{post.ruaID} - #{rua}
+        br
+
+        .w3-margin-top(style="display: flex; justify-content: center; align-items: center;")
+            .w3-center(style="display: flex; justify-content: center; align-items: center; gap: 10px;")
+                
+                if post.peopleLikes.includes(username)
+                    form(action='/posts/' + post._id + '/unlike' method='POST')
+                        button.w3-button.w3-light-blue(type='submit') Liked
+                else
+                    form(action='/posts/' + post._id + '/like' method='POST')
+                        button.w3-button.w3-blue(type='submit') Like
+                p.w3-text-grey 
+                    | #{post.likes} 
+                    if post.likes == 1
+                        | Like 
+                    else
+                        | Likes 
+                a.w3-button.w3-red(style="margin-left: 10px;" href='/posts/' + post._id + '/commentForm') Comentário
+                p.w3-text-grey 
+                    | #{post.comments.length} 
+                    if post.comments.length == 1
+                        | Comentário
+                    else
+                        | Comentários
+
+    if post.comments.length > 0
+        .w3-card-4.w3-margin-top(style="max-width: 1000px; margin-left: auto; margin-right: auto;")
+            h2.w3-center(style="margin-top: 20px;") Comments
+            each comment in post.comments
+                .w3-container.w3-margin.w3-padding.w3-border-bottom(style="word-wrap: break-word;")
+                    h3= comment.user
+                    p= comment.content 
+                    .w3-text-grey
+                        span Comentado em #{comment.date.toString().replace(/T/, ' ').replace(/\..+/, '').substring(0, 10)}
+    else
+        .w3-card-4.w3-margin-top(style="max-width: 1000px; margin-left: auto; margin-right: auto;")
+            p.w3-center Ainda não existem comentários
+

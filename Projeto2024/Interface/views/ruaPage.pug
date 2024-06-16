@@ -1,0 +1,62 @@
+extends layout 
+
+block content 
+    a.w3-button.w3-dark-grey.w3-padding-large(style="margin-left: 20px; margin-top: 30px; color: black; margin-bottom: 20px;" href='/ruas') < Voltar às ruas
+    a.w3-button.w3-dark-grey.w3-padding-large(style="margin-left: 20px; margin-top: 30px; color: black; margin-bottom: 20px;" href='/posts?rua='+rua.nome) Ver posts  
+    a.w3-button.w3-dark-grey.w3-padding-large(style="margin-left: 20px; margin-top: 30px; color: black; margin-bottom: 20px;" href='/posts/'+rua._id+'/makePost') Fazer um post 
+    a.w3-button.w3-dark-grey.w3-padding-large(style="margin-left: 20px; margin-top: 30px; color: black; margin-bottom: 20px;" href='/sugestoes/'+rua._id) Fazer uma sugestão  
+    if level == 'Administrador'
+        a.w3-button.w3-dark-grey.w3-padding-large(style="margin-left: 20px; margin-top: 30px; color: black; margin-bottom: 20px;" href='/sugestoes/rua/'+rua._id) Ver sugestões
+        a.w3-button.w3-dark-grey.w3-padding-large(style="margin-left: 20px; margin-top: 30px; color: black; margin-bottom: 20px;" href='/ruas/edit/'+rua._id) Editar rua
+        a.w3-button.w3-dark-grey.w3-padding-large(style="margin-left: 20px; margin-top: 30px; color: black; margin-bottom: 20px;" href='/ruas/delete/'+rua._id) Apagar rua
+    .w3-card-4 
+        h2(style='margin-left: 10px') Rua nº#{rua._id} - #{rua.nome}
+    
+    .w3-container
+        P
+            strong Descrição: 
+            | #{rua.texto}
+        
+        P 
+            strong Freguesia: 
+            | #{rua.freguesia}
+
+        P
+            strong Toponímia: 
+            | #{rua.toponimia}
+        
+        if rua.figuras && rua.figuras.length
+            h3 Figuras
+            .w3-card-4.w3-margin-bottom(style="padding: 15px;")
+                each fig in rua.figuras
+                    img(src=fig.path, alt=fig.path, style='width:100%')
+
+                    P 
+                        strong Legenda: 
+                        | #{fig.legenda}
+        
+        if rua.casas && rua.casas.length
+            h3 Casas
+            each casa in rua.casas
+                .w3-card-4.w3-margin-bottom(style="padding: 15px;")
+                    P 
+                        strong Número Porta: 
+                        | #{casa.numero_porta}
+                    P 
+                        strong Enfiteuta: 
+                        | #{casa.enfiteuta}
+                    
+                    P 
+                        strong Foro: 
+                        | #{casa.foro}
+
+                    P
+                        strong Descrição: 
+                        | #{casa.descricao}
+        
+        if rua.imagens_atuais && rua.imagens_atuais.length
+            h3 Imagens Atuais
+            .w3-card-4.w3-margin-bottom(style="padding: 15px;")
+                each img in rua.imagens_atuais
+                    if !rua.figuras.find(fig => fig.path === img)
+                        img(src=img, alt=img style='width:100%')

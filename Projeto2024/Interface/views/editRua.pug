@@ -1,0 +1,290 @@
+extends layout
+
+block content
+  .w3-container
+    form.w3-container(method='POST', id="myForm")
+      fieldset.w3-card-4
+        h2 
+          b Alterações na Rua
+        .w3-section(style="padding-top: 20px")
+          label 
+            b ID da Rua
+          input.w3-input(type='number' name='_id' value=rua._id required readonly)
+
+        .w3-section(style="padding-top: 20px")
+          label
+            b Nome da Rua
+          input.w3-input(type="text" name="nome" value=rua.nome required)
+
+        .w3-section(style="padding-top: 20px")
+          label
+            b Freguesia
+          input.w3-input(type="text" name="freguesia" value=rua.freguesia required)
+
+        .w3-section(style="padding-top: 20px")
+          label
+            b Toponimia
+          input.w3-input(type="text" name="toponimia" value=rua.toponimia required)
+        
+        .w3-section(style="padding-top: 20px")
+          label 
+            b Descrição
+            textarea.w3-input(name='texto' rows='15' style="background-color: #f1f1f1; border-style: solid; resize: none; height: #{rua.texto.length * 20}px;" required)= rua.texto
+
+        h3(style="padding-top: 20px")
+          b Figuras
+        
+        .w3-section(style="padding: 0px 20px")
+          #figuras-secao
+            each figura, i in rua.figuras
+              .w3-section.figura-secao(style="border: 2px solid black; border-radius: 5px; padding: 10px")
+                
+                label 
+                  b Id da Imagem
+                input.w3-input(type="text" name=`figuras[${i}][idImage]` value=figura.idImage required style="margin-bottom: 5px")
+
+                br
+                
+
+                label 
+                  b Imagem 
+                  br
+
+                input.w3-input(type="text" name=`figuras[${i}][path]` value=figura.path, readonly style="display: none;")
+                img(src=figura.path, name=`aux2[${i}]`, style="max-width: 100px; max-height: 100px;")
+
+                input.w3-input(type="file" id=`fileInput${i}` onchange=`toggleButton(this, 'editButton2${i}')` accept=".png, .jpg, .jpeg, .PNG, .JPG, .JPEG")
+                button.w3-button.w3-yellow(type="button" id=`editButton2${i}` onclick=`changePath(this, 'aux2[${i}]', 'figuras[${i}][path]', '${idRua}', 'antigas')` style="margin-left: 10px; font-size: smaller" disabled=true) Editar
+
+
+
+
+
+
+
+
+                br
+                br
+                label
+                  b Legenda
+                input.w3-input(type="text" name=`figuras[${i}][legenda]` value=figura.legenda required style="margin-bottom: 5px")
+
+                button.w3-button.w3-red(type="button" onclick="removeSection(this)" style="margin-left: 10px; font-size: smaller") Remover
+
+
+
+        .w3-section.w3-section(style="padding: 0px 20px")
+          button.w3-button.w3-green(type="button" onclick=`addFiguraSection('${idRua}')`) Adicionar Figura
+
+
+        h3(style="padding-top: 40px")
+          b Imagens Atuais
+
+        .w3-section(style="padding: 0px 20px")
+          #imagens-secao
+            each imagem, k in rua.imagens_atuais
+              .w3-section.imagem-secao(style="border: 2px solid black; border-radius: 5px; padding: 10px")
+                
+                input.w3-input(type="text" name=`imagens_atuais[${k}]` value=imagem, readonly style="display: none;")
+                img(src=imagem, name=`aux[${k}]`, style="max-width: 100px; max-height: 100px;")
+
+                input.w3-input(type="file" id=`fileInput${k}` onchange=`toggleButton(this, 'editButton${k}')` accept=".png, .jpg, .jpeg, .PNG, .JPG, .JPEG")
+                button.w3-button.w3-yellow(type="button" id=`editButton${k}` onclick=`changePath(this, 'aux[${k}]', 'imagens_atuais[${k}]', '${idRua}', 'atuais')` style="margin-left: 10px; font-size: smaller" disabled=true) Editar
+
+                button.w3-button.w3-red(type="button" onclick="removeSection(this)" style="margin-left: 10px; font-size: smaller") Remover
+
+        .w3-section(style="padding: 0px 20px")
+            button.w3-button.w3-green(type="button" onclick=`addImagemSection('${idRua}')`) Adicionar Imagem
+
+
+
+
+
+        h3(style="padding-top: 40px")
+          b Casas
+
+        #casas-secao(style="padding: 0px 20px")
+          each casa, j in rua.casas
+            .w3-section.casa-secao(style="border: 2px solid black; border-radius: 5px; padding: 10px")
+
+              label 
+                b Número da Porta
+              input.w3-input(type="text" name=`casas[${j}][numero_porta]` value=casa.numero_porta required style="margin-bottom: 5px")
+
+              label 
+                b Enfiteuta
+              input.w3-input(type="text" name=`casas[${j}][enfiteuta]` value=casa.enfiteuta  style="margin-bottom: 5px")
+
+              label 
+                b Foro
+              input.w3-input(type="text" name=`casas[${j}][foro]` value=casa.foro  style="margin-bottom: 5px")
+
+              label 
+                b Descrição
+              input.w3-input(type="text" name=`casas[${j}][descricao]` value=casa.descricao  style="margin-bottom: 5px")
+
+              button.w3-button.w3-red(type="button" onclick="removeSection(this)" style="margin-left: 10px; font-size: smaller") Remover
+
+        .w3-section(style="padding: 0px 20px")
+          button.w3-button.w3-green(type="button" onclick="addCasaSection()") Adicionar Casa
+
+
+
+        .w3-section(style="padding-top: 20px; text-align: right; padding-right: 20px")
+          button.w3-button.w3-purple(type="button" onclick="validateFormAndSubmit()") Salvar Alterações
+
+
+
+
+    script.
+
+      function validateFormAndSubmit() {
+        const currentUrl = window.location.href;
+        const imgs = document.querySelectorAll('img[name^="aux"], img[name^="aux2"]');
+        for (const img of imgs) {
+
+          if (!img.src || img.src === currentUrl) {
+            alert('Todas as imagens devem ter um caminho válido.');
+            return false;
+          }
+        }
+        document.getElementById('myForm').submit();
+      }
+
+
+
+      function toggleButton(fileInput, buttonId) {
+          var button = document.getElementById(buttonId);
+          if (fileInput.files.length > 0) {
+            var file = fileInput.files[0];
+            var fileType = file.name.split('.').pop().toLowerCase();
+            if (fileType === 'png' || fileType === 'jpg' || fileType === 'jpeg' || fileType === 'PNG' || fileType === 'JPG' || fileType === 'JPEG') {
+              button.disabled = false;
+            } else {
+              alert('Please select a valid image file.');
+              fileInput.value = '';
+              button.disabled = true;
+            }
+          } else {
+            button.disabled = true;
+          }
+      }
+
+ 
+      function changePath(fileInput, imgId, inputId, ruaId, typeFoto) {
+        var input = document.getElementsByName(inputId)[0];
+        var img = document.getElementsByName(imgId)[0];
+        var file = fileInput.previousElementSibling.files[0];
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          img.src = e.target.result;
+          input.value = file.name;
+          uploadFile(file, ruaId, input.value, typeFoto);
+        }
+        reader.readAsDataURL(file);
+      } 
+
+      function uploadFile(file, ruaId, fileName, typeFoto) {
+        var formData = new FormData();
+        formData.append('myFile', file);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/ruas/upload/'+ruaId+'/'+fileName+'/'+typeFoto, true);
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+              document.getElementById('w3-button').disabled = false;
+          } else {
+              alert('Failed to upload file');
+          }
+        };
+        xhr.send(formData);
+      }
+
+
+
+      function removeSection(button) {
+        button.closest('.w3-section').remove();
+      }
+
+      function addFiguraSection(idRua) {
+        const figurasSecao = document.getElementById('figuras-secao');
+        const index = figurasSecao.children.length;
+        const section = document.createElement('div');
+        section.className = 'w3-section figura-secao';
+        section.style = 'border: 2px solid black; border-radius: 5px; padding: 10px';
+        section.innerHTML = `
+            <label>
+              <b>Id da Imagem</b>
+            </label>
+            <input class="w3-input" type="text" name="figuras[${index}][idImage]" required style="margin-bottom: 5px">
+
+            <br>
+
+            <label>
+              <b>Imagem</b>
+              <br>
+            </label>
+            <input class="w3-input" type="text" name="figuras[${index}][path]" readonly style="display: none;">
+            <img src="" name="aux2[${index}]" style="max-width: 100px; max-height: 100px;">
+            <input class="w3-input" type="file" id="fileInput${index}" onchange="toggleButton(this, 'editButton2${index}')" accept=".png, .jpg, .jpeg, .PNG, .JPG, .JPEG">
+            <button class="w3-button w3-yellow" type="button" id="editButton2${index}" onclick="changePath(this, 'aux2[${index}]', 'figuras[${index}][path]', '${idRua}', 'antigas')" style="margin-left: 10px; font-size: smaller" disabled>Editar</button>
+
+            <br>
+            <br>
+
+            <label>
+              <b>Legenda</b>
+            </label>
+            <input class="w3-input" type="text" name="figuras[${index}][legenda]" required style="margin-bottom: 5px">
+
+            <button class="w3-button w3-red" type="button" onclick="removeSection(this)" style="margin-left: 10px; font-size: smaller">Remover</button>
+        `;
+        figurasSecao.appendChild(section);
+      }
+
+
+      function addImagemSection(idRua) {
+        const imagensSecao = document.getElementById('imagens-secao');
+        const index = imagensSecao.children.length;
+        const section = document.createElement('div');
+        section.className = 'w3-section imagem-secao';
+        section.style = 'border: 2px solid black; border-radius: 5px; padding: 10px';
+
+        section.innerHTML = `
+          <input class="w3-input" type="text" name="imagens_atuais[${index}]" readonly style="display: none;">
+          <img src="" name="aux[${index}]" style="max-width: 100px; max-height: 100px;">
+          <input class="w3-input" type="file" id="fileInput${index}" onchange="toggleButton(this, 'editButton${index}')" accept=".png, .jpg, .jpeg, .PNG, .JPG, .JPEG">
+          <button class="w3-button w3-yellow" type="button" id="editButton${index}" onclick="changePath(this, 'aux[${index}]', 'imagens_atuais[${index}]', '${idRua}', 'atuais')" style="margin-left: 10px; font-size: smaller" disabled>Editar</button>
+          <button class="w3-button w3-red" type="button" onclick="removeSection(this)" style="margin-left: 10px; font-size: smaller">Remover</button>
+        `;
+        imagensSecao.appendChild(section);
+      }
+
+
+
+      function addCasaSection() {
+        const casasSecao = document.getElementById('casas-secao');
+        const index = casasSecao.children.length;
+        const section = document.createElement('div');
+        section.className = 'w3-section casa-secao';
+        section.style = "border: 2px solid black; border-radius: 5px; padding: 10px";
+        section.innerHTML = `
+          <label>
+            <b>Número da Porta</b>
+          </label>
+          <input class="w3-input" type="text" name="casas[${index}][numero_porta]" required style="margin-bottom: 5px">
+          <label>
+            <b>Enfiteuta</b>
+          </label>
+          <input class="w3-input" type="text" name="casas[${index}][enfiteuta]" style="margin-bottom: 5px">
+          <label>
+            <b>Foro</b>
+          </label>
+          <input class="w3-input" type="text" name="casas[${index}][foro]" style="margin-bottom: 5px">
+          <label>
+            <b>Descrição</b>
+          </label>
+          <input class="w3-input" type="text" name="casas[${index}][descricao]" style="margin-bottom: 5px">
+          <button class="w3-button w3-red" type="button" onclick="removeSection(this)" style="margin-left: 10px; font-size: smaller">Remover</button>
+        `;
+        casasSecao.appendChild(section);
+      } 
